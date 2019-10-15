@@ -19,19 +19,17 @@ class App extends Component {
     let {mads} = this.state;
     for(let i = 0; i < mads.length; i++){
       if(mads[i].userInput === ""){
-        console.log("not ready");
         return;
       }
     }
     this.setState({madLibFinished: true})
     this.getMadLib();
-    console.log("ready");
   }
   
   getMadLib = () => {
     let str = "";
     let {mads, index} = this.state;
-    for(let i = 0; i < madStates.length; i++){
+    for(let i = 0; i < madStates[index].length; i++){
       str += madStates[index][i].string + mads[i].userInput;
     }
     this.setState({madLibStrang: str});
@@ -45,8 +43,10 @@ class App extends Component {
     }
     
     let dexVar = Math.floor(Math.random() * madStates.length);
-    while(dexVar === this.state.index){
-      dexVar = Math.floor(Math.random() * madStates.length);
+    if(madStates.length > 1){
+      while(dexVar === this.state.index){
+        dexVar = Math.floor(Math.random() * madStates.length);
+      }
     }
     
     let m = [];
